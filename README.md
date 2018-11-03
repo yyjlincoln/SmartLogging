@@ -10,7 +10,7 @@ It's super easy to setup. Just take 30 seconds and it can save your time of trac
 
 # Clear, Always.
 
-    import .......
+    # import .......
     def ConnectionHandler():
         Socket=socket()
         Socket.bind((SYS_ADDRESS,SYS_PORT))
@@ -19,7 +19,8 @@ It's super easy to setup. Just take 30 seconds and it can save your time of trac
         while True:
             print('Waiting for connection...')
             sx,addr=Socket.accept()
-            Handle(sx,addr).start()
+            # DO SOMETHING
+            sx.close()
 
     print('Initialized. Lauching server...')
     ConnectionHandler()
