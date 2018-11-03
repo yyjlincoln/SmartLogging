@@ -1,4 +1,4 @@
-# Safe Python3 Logging.
+# Easy Python3 Logging.
 Welcome to SmartLogging for Python3!
 
 You can use this as a tool when you are developing.
