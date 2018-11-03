@@ -11,17 +11,20 @@ It's super easy to setup. Just take 30 seconds and it can save your time of trac
 # Clear, Always.
 
     # import .......
+    def Token_Generator():
+        ......
+        yield ...
+    
     def ConnectionHandler():
         Socket=socket()
-        Socket.bind((SYS_ADDRESS,SYS_PORT))
-        Socket.listen(10)
-        print('Successfully launched.')
+        ......
         while True:
             print('Waiting for connection...')
             sx,addr=Socket.accept()
             # DO SOMETHING
             sx.close()
-
+    
+    TokenGen = Token_Generator()    
     print('Initialized. Lauching server...')
     ConnectionHandler()
             
