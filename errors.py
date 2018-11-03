@@ -3,6 +3,11 @@
 
 #imports
 from functools import wraps
+import _thread
+
+MsgList=[]
+PushStat=False
+
 #Default Error Logging
 SYS_ALLOW_ERROR=False
 SYS_PRINT_VERBOSE=True
@@ -50,10 +55,29 @@ def printlog(*args,level='[Output]',**kw):
     print(*args,**kw)
 
 def print(*args,**kw):
-    global PRINTLOCK
-    while PRINTLOCK==True:
-        # rawprint('PRINTLOCK DENIED')
+    global PRINTLOCK,MsgList
+    if not PushStat:
+        _thread.start_new(Push,())
+    MsgList.append([args,kw])
+    return
+    # PRINTLOCK=True
+    # rawprint(*args,**kw)
+    # PRINTLOCK=False
+
+def Push():
+    global PushStat, MsgList, PRINTLOCK
+    if PushStat:
+        return
+    PushStat=True
+    while len(MsgList)>0:
+#        while PRINTLOCK==True:
+#            pass#Wait for PRINTLOCK
+#        PRINTLOCK=True
+        rawprint(*MsgList[0][0],**MsgList[0][1])
+#        PRINTLOCK=False
+        MsgList.pop(0)
+    PushStat=False
+    try:
+        _thread.exit()
+    except SystemExit:
         pass
-    PRINTLOCK=True
-    rawprint(*args,**kw)
-    PRINTLOCK=False
